@@ -1,0 +1,20 @@
+node {
+    stage 'Clone the project'
+    git 'https://github.com/trrttrtrsrfewrwed/ToRelaxBackend'
+
+
+        stage("Compilation and Analysis") {
+            parallel 'Compilation': {
+                sh "./mvnw clean install -DskipTests"
+            }
+        }
+
+        stage("Tests and Deployment") {
+            parallel 'tests': {
+                stage("Runing tests") {
+                    sh "./mvnw test"
+                }
+            }
+        }
+
+}
